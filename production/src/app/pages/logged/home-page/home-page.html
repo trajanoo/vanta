@@ -1,0 +1,80 @@
+<div class="min-h-screen bg-[#0D0D0D] text-white flex">
+    <div class="w-full md:w-80 lg:w-72 border-r border-[#161616] p-4 flex flex-col">
+        <div class="flex items-center justify-between mb-12">
+            <div class="w-14 h-12">
+                <img src="../../../../vantalogo.png" class="w-full h-full fill-current" alt="">
+            </div>
+        </div>
+        <app-side-bar />
+    </div>
+    <div class="flex-1 p-6">
+        <div class="flex justify-end items-center mb-8">
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 rounded-full py-1 px-3">
+                    <img id="imgMain" src="../../../../academico.jpg" alt="Senac logo" class="w-6 h-6 rounded" keywords="senac, education, brazil" />
+                    <span id="pastaHeader" class="text-sm">Acadêmico</span>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-neutral-700 hover:bg-neutral-600 transition-colors cursor-pointer flex items-center justify-center">
+                    <img src="../../../../userfoto.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center gap-4 mb-6">
+            <div class="w-16 h-16 bg-white rounded-md overflow-hidden flex items-center justify-center">
+                <img id="imgHeader" src="../../../../academico.jpg" alt="Senac logo" class="object-cover" keywords="senac, education, brazil" />
+            </div>
+            <div>
+                <h1 id="title" class="text-xl font-bold">Acadêmico</h1>
+                <div class="flex items-center gap-1 text-neutral-400 text-sm">
+                    <span class="material-symbols-outlined text-sm">workspace_premium</span>
+                    <span>Free</span>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-[#161616] mb-6"></div>
+        <div class="mb-8">
+            <div class="flex items-center mb-6">
+                <span class="material-symbols Offerings-outlined mr-2"></span>
+                <h2 class="text-lg">Seus projetos</h2>
+            </div>
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div id="abrirModal" class="bg-neutral-800 py-10 rounded-md hover:bg-neutral-700 transition-colors flex items-center justify-center cursor-pointer">
+                    <span class="material-symbols-outlined text-4xl text-neutral-600">add</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="projectModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden transition-opacity duration-300">
+    <div class="bg-[#282828] rounded-sm p-6 w-full max-w-md shadow-lg transform transition-transform duration-300 scale-95">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-title text-white font-bold">Adicionar Novo Projeto</h3>
+            <button id="fecharModal" class="text-neutral-400 hover:text-neutral-200 transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-800">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div>
+            <div class="mb-6">
+                <label for="projectFolder" class="text-neutral-100 block text-sm font-body mb-2">Pasta</label>
+                <select id="projectFolder" class="w-full p-3 rounded-sm bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-neutral-500 transition-colors">
+                    <option value="academico">Acadêmico</option>
+                    <option value="pessoal">Pessoal</option>
+                    <option value="profissional">Profissional</option>
+                </select>
+            </div>
+            <div class="mb-6">
+                <label for="projectName" class="text-neutral-100 block text-sm font-body mb-2">Nome do Projeto</label>
+                <input type="text" id="projectName" class="w-full p-3 rounded-sm bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-neutral-500 transition-colors placeholder-neutral-400" placeholder="Digite o nome do projeto">
+            </div>
+            <div class="mb-6">
+                <label for="projectDescription" class="text-neutral-100 block text-sm font-body mb-2">Descrição</label>
+                <textarea id="projectDescription" class="w-full p-3 rounded-sm bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-border-neutral-500 transition-colors placeholder-neutral-400" rows="4" placeholder="Descreva o projeto"></textarea>
+            </div>
+            <div class="flex justify-end gap-3">
+                <button id="cancelarModal" class="px-4 py-2 rounded-sm bg-neutral-700 hover:bg-neutral-600 text-white font-body transition-colors">Cancelar</button>
+                <button id="salvarProjeto" class="px-4 py-2 rounded-sm bg-neutral-500 hover:bg-neutral-400 text-white font-body transition-colors">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
