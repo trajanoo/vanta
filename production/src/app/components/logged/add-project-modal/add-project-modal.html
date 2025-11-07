@@ -1,0 +1,32 @@
+<div id="projectModal" [class]="showProjectModal ? 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50' : 'hidden'">
+    <div class="bg-[#282828] rounded-lg p-6 w-full max-w-md shadow-lg transform transition-transform duration-300 scale-95">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-title text-white font-bold">Adicionar Novo Projeto</h3>
+            <button id="fecharModal" (click)="toggleProjectModal()" class="text-neutral-400 hover:text-neutral-200 transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-800">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div>
+            <div class="mb-6">
+                <label for="projectFolder" class="text-neutral-100 block text-sm font-body mb-2">Pasta</label>
+                <select id="projectFolder" class="w-full p-3 rounded-md bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-neutral-500 transition-colors">
+                    <option value="academico">Acadêmico</option>
+                    <option value="pessoal">Pessoal</option>
+                    <option value="profissional">Profissional</option>
+                </select>
+            </div>
+            <div class="mb-6">
+                <label for="projectName" class="text-neutral-100 block text-sm font-body mb-2">Nome do Projeto</label>
+                <input type="text" id="projectName" class="w-full p-3 rounded-md bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-neutral-500 transition-colors placeholder-neutral-400" placeholder="Digite o nome do projeto">
+            </div>
+            <div class="mb-6">
+                <label for="projectDescription" class="text-neutral-100 block text-sm font-body mb-2">Descrição</label>
+                <textarea id="projectDescription" class="w-full p-3 rounded-md bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-border-neutral-500 transition-colors placeholder-neutral-400" rows="4" placeholder="Descreva o projeto"></textarea>
+            </div>
+            <div class="flex justify-end gap-3">
+                <button id="cancelarModal" (click)="toggleProjectModal()" class="px-4 py-2 rounded-md bg-neutral-700 hover:bg-neutral-600 text-white font-body transition-colors">Cancelar</button>
+                <button id="salvarProjeto" class="px-4 py-2 rounded-md bg-neutral-500 hover:bg-neutral-400 text-white font-body transition-colors">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
