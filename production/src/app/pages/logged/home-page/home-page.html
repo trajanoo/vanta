@@ -5,14 +5,14 @@
                 <img src="../../../../vantalogo.png" class="w-full h-full fill-current" alt="">
             </div>
         </div>
-        <app-side-bar />
+        <app-side-bar (folderChange)="setFolder($event)" />
     </div>
     <div class="flex-1 p-6">
         <div class="flex justify-end items-center mb-8">
             <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2 rounded-full py-1 px-3">
-                    <img id="imgMain" src="../../../../academico.jpg" alt="Senac logo" class="w-6 h-6 rounded" keywords="senac, education, brazil" />
-                    <span id="pastaHeader" class="text-sm">Acadêmico</span>
+                    <img id="imgMain" [src]="'../../../../' + currentFolder + '.png'" alt="Senac logo" class="w-6 h-6 rounded" keywords="senac, education, brazil" />
+                    <span id="pastaHeader" class="text-sm">{{ currentFolder }}</span>
                 </div>
                 <div class="w-8 h-8 rounded-full bg-neutral-700 hover:bg-neutral-600 transition-colors cursor-pointer flex items-center justify-center">
                     <img src="../../../../userfoto.png" alt="">
@@ -21,10 +21,10 @@
         </div>
         <div class="flex items-center gap-4 mb-6">
             <div class="w-16 h-16 bg-white rounded-md overflow-hidden flex items-center justify-center">
-                <img id="imgHeader" src="../../../../academico.jpg" alt="Senac logo" class="object-cover" keywords="senac, education, brazil" />
+                <img id="imgHeader" [src]="'../../../../' + currentFolder + '.png'" alt="Senac logo" class="object-cover" keywords="senac, education, brazil" />
             </div>
             <div>
-                <h1 id="title" class="text-xl font-bold">Acadêmico</h1>
+                <h1 id="title" class="text-xl font-bold">{{ currentFolder }}</h1>
                 <div class="flex items-center gap-1 text-neutral-400 text-sm">
                     <span class="material-symbols-outlined text-sm">workspace_premium</span>
                     <span>Free</span>
@@ -38,6 +38,14 @@
                 <h2 class="text-lg">Seus projetos</h2>
             </div>
             <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                <ng-container *ngIf="projects$ | async as projects">
+                    <div *ngFor="let p of projects" class="bg-neutral-800 py-10 rounded-md hover:bg-neutral-700 transition-colors flex items-center justify-center cursor-pointer">
+                    <div class="flex items-center justify-center flex-col">
+                        <h3 class="font-bold">{{ p.name }}</h3>
+                    </div>
+                </div>
+                </ng-container>
+
                 <div id="abrirModal" (click)="toggleProjectModal()" class="bg-neutral-800 py-10 rounded-md hover:bg-neutral-700 transition-colors flex items-center justify-center cursor-pointer">
                     <span class="material-symbols-outlined text-4xl text-neutral-600">add</span>
                 </div>
@@ -47,5 +55,9 @@
 </div>
 
 <div [class]="showProjectModal ? '' : 'hidden'">
-    <app-add-project-modal [showProjectModal]="showProjectModal" (closeModal)="toggleProjectModal()"/>
+    <app-add-project-modal
+        [showProjectModal]="showProjectModal" 
+        (closeModal)="toggleProjectModal()"
+        (createdProject)="onProjectCreated($event)"
+        />
 </div>

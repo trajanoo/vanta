@@ -7,9 +7,9 @@
     </div>
     <div class="relative mb-1">
         <details id="details-academico" class="w-full" open="">
-            <summary class="flex items-center justify-between p-2 rounded hover:bg-neutral-800 cursor-pointer list-none">
+            <summary (click)="selectFolder('Acadêmico')" class="flex items-center justify-between p-2 rounded hover:bg-neutral-800 cursor-pointer list-none">
                 <div class="flex items-center gap-2">
-                    <img src="../../../../academico.jpg" alt="Senac logo" class="w-8 h-8 rounded" keywords="senac, education, brazil" />
+                    <img src="../../../../Acadêmico.png" alt="Senac logo" class="w-8 h-8 rounded" keywords="senac, education, brazil" />
                     <span class="text-sm">Acadêmico</span>
                 </div>
                 <span class="material-symbols-outlined text-sm transition-transform">expand_more</span>
@@ -28,9 +28,9 @@
     </div>
     <div class="relative mb-1">
         <details id="details-pessoal" class="w-full">
-            <summary class="flex items-center justify-between p-2 rounded hover:bg-neutral-800 cursor-pointer list-none">
+            <summary (click)="selectFolder('Pessoal')" class="flex items-center justify-between p-2 rounded hover:bg-neutral-800 cursor-pointer list-none">
                 <div class="flex items-center gap-2">
-                    <img src="../../../../pessoal.png" alt="SAP logo" class="w-8 h-8 rounded bg-blue-500" keywords="sap, enterprise, software" />
+                    <img src="../../../../Pessoal.png" alt="SAP logo" class="w-8 h-8 rounded bg-blue-500" keywords="sap, enterprise, software" />
                     <span class="text-sm">Pessoal</span>
                 </div>
                 <span class="material-symbols-outlined text-sm transition-transform">expand_more</span>
@@ -49,9 +49,9 @@
     </div>
     <div class="relative mb-1">
         <details id="details-profissional" class="w-full">
-            <summary class="flex items-center justify-between p-2 rounded hover:bg-neutral-800 cursor-pointer list-none">
+            <summary (click)="selectFolder('Profissional')" class="flex items-center justify-between p-2 rounded hover:bg-neutral-800 cursor-pointer list-none">
                 <div class="flex items-center gap-2">
-                    <img src="../../../../profissional.png" alt="SAP logo" class="w-8 h-8 rounded bg-blue-500" keywords="sap, enterprise, software" />
+                    <img src="../../../../Profissional.png" alt="SAP logo" class="w-8 h-8 rounded bg-blue-500" keywords="sap, enterprise, software" />
                     <span class="text-sm">Profissional</span>
                 </div>
                 <span class="material-symbols-outlined text-sm transition-transform">expand_more</span>

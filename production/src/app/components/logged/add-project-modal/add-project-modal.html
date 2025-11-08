@@ -9,23 +9,23 @@
         <div>
             <div class="mb-6">
                 <label for="projectFolder" class="text-neutral-100 block text-sm font-body mb-2">Pasta</label>
-                <select id="projectFolder" class="w-full p-3 rounded-md bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-neutral-500 transition-colors">
-                    <option value="academico">Acadêmico</option>
-                    <option value="pessoal">Pessoal</option>
-                    <option value="profissional">Profissional</option>
+                <select id="projectFolder" #projectFolder class="w-full p-3 rounded-md bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-neutral-500 transition-colors">
+                    <option value="Acadêmico">Acadêmico</option>
+                    <option value="Pessoal">Pessoal</option>
+                    <option value="Profissional">Profissional</option>
                 </select>
             </div>
             <div class="mb-6">
                 <label for="projectName" class="text-neutral-100 block text-sm font-body mb-2">Nome do Projeto</label>
-                <input type="text" id="projectName" class="w-full p-3 rounded-md bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-neutral-500 transition-colors placeholder-neutral-400" placeholder="Digite o nome do projeto">
+                <input type="text" id="projectName" #projectName class="w-full p-3 rounded-md bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-neutral-500 transition-colors placeholder-neutral-400" placeholder="Digite o nome do projeto">
             </div>
             <div class="mb-6">
                 <label for="projectDescription" class="text-neutral-100 block text-sm font-body mb-2">Descrição</label>
-                <textarea id="projectDescription" class="w-full p-3 rounded-md bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-border-neutral-500 transition-colors placeholder-neutral-400" rows="4" placeholder="Descreva o projeto"></textarea>
+                <textarea id="projectDescription" #projectDescription class="w-full p-3 rounded-md bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:border-border-neutral-500 transition-colors placeholder-neutral-400" rows="4" placeholder="Descreva o projeto"></textarea>
             </div>
             <div class="flex justify-end gap-3">
                 <button id="cancelarModal" (click)="toggleProjectModal()" class="px-4 py-2 rounded-md bg-neutral-700 hover:bg-neutral-600 text-white font-body transition-colors">Cancelar</button>
-                <button id="salvarProjeto" class="px-4 py-2 rounded-md bg-neutral-500 hover:bg-neutral-400 text-white font-body transition-colors">Salvar</button>
+                <button (click)="submit(projectName.value, projectDescription.value, projectFolder.value)" id="salvarProjeto" class="px-4 py-2 rounded-md bg-neutral-500 hover:bg-neutral-400 text-white font-body transition-colors">Salvar</button>
             </div>
         </div>
     </div>
