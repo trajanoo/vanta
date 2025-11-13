@@ -32,7 +32,7 @@ export class HomePage implements OnInit {
   }
 
   goToProject(project: Project) {
-    this.router.navigate([`/logged/kanban/${project.id}`]);
+    this.router.navigate([`/logged/kanban/${project.id}`], { queryParams: { projectName: project.name } });
   }
 
   showProjectModal: boolean = false;
@@ -41,8 +41,7 @@ export class HomePage implements OnInit {
   }
 
     async onProjectCreated(project: Project) {
-    // o Supabase já atualiza o BehaviorSubject em createProject,
-    // então aqui apenas logamos ou podemos navegar ao projeto criado se desejar:
+    
     console.log('Projeto criado:', project);
     await this.supabase.loadAllProjects();
     this.projects$ = this.supabase.getProjectsByFolder(this.currentFolder);

@@ -1,0 +1,133 @@
+<div class="bg-[#0D0D0D] min-h-screen text-white">
+  <div class="grid grid-cols-12 min-h-screen">
+    <div class="col-span-1 w-[100px] border-r border-[#161616]">
+      <div class="p-4 pb-10 flex justify-center items-center">
+        <img src="../../../../vantalogo.png" class="w-14 h-12 text-white cursor-pointer" (click)="goToHomePage()" />
+      </div>
+      <div class="flex flex-col items-center gap-8 mt-8">
+        <div class="cursor-pointer">
+          <span
+            class="material-symbols-outlined hover:bg-neutral-800 rounded-md transition-all duration-200 p-2">grid_view</span>
+        </div>
+        <div class="cursor-pointer">
+          <span
+            class="material-symbols-outlined hover:bg-neutral-800 rounded-md transition-all duration-200 p-2">calendar_month</span>
+        </div>
+        <div class="cursor-pointer">
+          <span
+            class="material-symbols-outlined hover:bg-neutral-800 rounded-md transition-all duration-200 p-2">description</span>
+        </div>
+        <div class="cursor-pointer">
+          <span
+            class="material-symbols-outlined  hover:bg-neutral-800 rounded-md transition-all duration-200 p-2">people</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="col-span-11 p-4 pl-10">
+      <!-- Header -->
+      <div class="grid grid-cols-12 items-center mb-6">
+        <div class="col-span-5">
+          <div class="relative">
+            <input type="text" placeholder="Search"
+              class="w-full px-10 py-2 bg-neutral-900 border border-transparent rounded-md focus:outline-none focus:border-neutral-700 transition-all duration-200" />
+            <span class="material-symbols-outlined absolute left-3 top-2 text-gray-400">search</span>
+          </div>
+        </div>
+        <div class="col-span-7 flex justify-end items-center gap-4">
+          <button>
+            <span
+              class="material-symbols-outlined p-2 rounded-full hover:bg-neutral-900 transition-all duration-200">history</span>
+          </button>
+          <button>
+            <span
+              class="material-symbols-outlined p-2 rounded-full hover:bg-neutral-900 transition-all duration-200">notifications</span>
+          </button>
+          <div
+            class="flex items-center gap-2 cursor-pointer hover:bg-neutral-900 p-1 px-2 rounded-md transition-all duration-200">
+            <img src="../../../userfoto.png" alt="User profile" class="w-8 h-8 rounded-full" />
+            <span class="material-symbols-outlined">expand_more</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center mt-10 mb-6">
+        <h1 class="text-2xl font-bold hover:underline cursor-pointer">{{ projectName }}</h1>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div *ngFor="let column of columns" class="col-span-1">
+          <div class="kanban-column-container">
+            <div class="column-header">
+              <h2 class="font-medium capitalize">{{ column.replace('-', ' ') }}</h2>
+              <button class="add-task-btn"
+                (click)="openModal(column)">
+                <span class="material-symbols-outlined p-1 hover:bg-neutral-900 rounded-full transition-colors">add</span>
+              </button>
+            </div>
+
+            <div cdkDropList [id]="column" [cdkDropListData]="tasks[column]" [cdkDropListConnectedTo]="columns"
+              class="kanban-column min-h-[200px] p-2 rounded-md" (cdkDropListDropped)="drop($event, column)">
+              <div *ngFor="let task of tasks[column]" cdkDrag
+                class="bg-neutral-900 rounded-md p-3 mb-3 border border-transparent hover:border-neutral-800 cursor-grab">
+                <div class="flex justify-between mb-2">
+                  <p class="text-sm">{{ task.title }}</p>
+                  <button class="text-neutral-600 hover:text-neutral-400" (click)="openModal(column, task)">
+                    <span class="material-symbols-outlined text-lg">more_horiz</span>
+                  </button>
+                </div>
+                <div class="flex justify-between items-center mt-4">
+                  <span [ngClass]="{
+          'bg-green-700 text-green-200': task.priority === 'low',
+          'bg-yellow-700 text-yellow-200': task.priority === 'medium',
+          'bg-red-700 text-red-200': task.priority === 'high'
+        }" class="text-xs px-2 py-0.5 rounded">
+                    {{ task.priority | titlecase }}
+                  </span>
+                  <span class="text-xs text-gray-400">{{ task.date }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" [class.show]="modalVisible">
+    <div class="modal-content bg-neutral-950">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-bold text-white">{{ modalTitle }}</h3>
+        <button (click)="closeModal()"
+          class="text-neutral-400 hover:text-neutral-200 w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-800">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div>
+        <label class="block text-sm mb-2 text-neutral-100">Título</label>
+        <input [(ngModel)]="taskTitle" class="w-full p-3 rounded-md bg-neutral-800 text-white mb-4"
+          placeholder="Digite o título" />
+
+        <label class="block text-sm mb-2 text-neutral-100">Prioridade</label>
+        <select [(ngModel)]="taskPriority" class="w-full p-3 rounded-md bg-neutral-800 text-white mb-4">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+
+        <label class="block text-sm mb-2 text-neutral-100">Data</label>
+        <input type="date" [(ngModel)]="taskDate" class="w-full p-3 rounded-md bg-neutral-800 text-white mb-4" />
+
+        <div class="flex justify-end gap-3">
+          <button (click)="closeModal()" class="px-4 py-2 rounded-md bg-neutral-700 hover:bg-neutral-600">
+            Cancelar
+          </button>
+          <button (click)="saveTask()" class="px-4 py-2 rounded-md bg-neutral-500 hover:bg-neutral-400">
+            Salvar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
