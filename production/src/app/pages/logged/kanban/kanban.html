@@ -30,7 +30,7 @@
       <div class="grid grid-cols-12 items-center mb-6">
         <div class="col-span-5">
           <div class="relative">
-            <input type="text" placeholder="Search"
+            <input type="text" [(ngModel)]="searchText" placeholder="Search"
               class="w-full px-10 py-2 bg-neutral-900 border border-transparent rounded-md focus:outline-none focus:border-neutral-700 transition-all duration-200" />
             <span class="material-symbols-outlined absolute left-3 top-2 text-gray-400">search</span>
           </div>
@@ -69,7 +69,7 @@
 
             <div cdkDropList [id]="column" [cdkDropListData]="tasks[column]" [cdkDropListConnectedTo]="columns"
               class="kanban-column min-h-[200px] p-2 rounded-md" (cdkDropListDropped)="drop($event, column)">
-              <div *ngFor="let task of tasks[column]" cdkDrag
+              <div *ngFor="let task of filteredTasks[column]" cdkDrag
                 class="bg-neutral-900 rounded-md p-3 mb-3 border border-transparent hover:border-neutral-800 cursor-grab">
                 <div class="flex justify-between mb-2">
                   <p class="text-sm">{{ task.title }}</p>

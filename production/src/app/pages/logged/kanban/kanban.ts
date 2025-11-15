@@ -5,6 +5,7 @@ import { CommonModule, NgClass, TitleCasePipe } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 interface Task {
   id: string;
@@ -41,6 +42,7 @@ export class KanbanComponent implements OnInit {
   projectName: string | null = null;
   editingTask: Task | null = null;
   projectId: string | null = null;
+  searchText: string = '';
 
   constructor(private supabase: Supabase, private route: ActivatedRoute, private router: Router) {}
 
@@ -101,6 +103,27 @@ export class KanbanComponent implements OnInit {
       this.taskDate = '';
       this.editingTask = null;
     }
+  }
+
+  get filteredTasks() {
+    if(!this.searchText.trim()) return this.tasks
+
+    const lower = this.searchText.toLowerCase();
+
+    const filtered: Record<string, Task[]> = {
+      'to-do': [],
+      'in-progress': [],
+      'done': [],
+      'pendent': []
+    };
+
+    this.columns.forEach(col => {
+      filtered[col] = this.tasks[col].filter(task =>
+        task.title.toLowerCase().includes(lower)
+      );
+    });
+
+    return filtered
   }
 
   closeModal() {
