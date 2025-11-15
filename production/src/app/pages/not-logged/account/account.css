@@ -170,3 +170,11 @@
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+.vanta-logo {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 9999;
+    pointer-events: none;;
+}

@@ -19,10 +19,43 @@ export class Supabase {
     this.loadAllProjects();
   }
 
+  async signUp(username: string, email: string, password: string) {
+    return await this.supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { username }
+      }
+    })
+  }
+
+  async login(email: string, password: string) {
+    return await this.supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+  }
+
+  async getUser() {
+    return await this.supabase.auth.getUser();
+  }
+
+  async logout() {
+    return await this.supabase.auth.signOut();
+  }
+
   async loadAllProjects() {
+    const { data: userData } = await this.supabase.auth.getUser();
+    const user = userData?.user;
+    if(!user) {
+      this.projects$.next([]);
+      return;
+    }
+
     const { data, error } = await this.supabase
       .from('projects')
       .select('*')
+      .eq('user_id', user.id)
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -40,9 +73,17 @@ export class Supabase {
   }
 
   async createProject(project: Project) {
+    const { data: userData } = await this.supabase.auth.getUser();
+    const user = userData?.user;
+
+    if(!user) throw new Error('User not found');
+
     const { data, error } = await this.supabase
     .from('projects')
-    .insert([project])
+    .insert([{
+      ...project,
+      user_id: user.id
+    }])
     .select()
     .single();
 

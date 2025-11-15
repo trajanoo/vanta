@@ -1,21 +1,13 @@
+<div class="w-14 h-12 vanta-logo">
+  <img src="../../../../vantalogo.png" class="w-full h-full fill-current" alt="">
+</div>
 <div class="page-wrapper">
-  <div
-    id="container"
-    [class.flipped]="isFlipped"
-    (mousemove)="handleParallax($event)"
-  >
-
+  <div id="container" [class.flipped]="isFlipped" (mousemove)="handleParallax($event)">
     <div class="bg-layer bg-a"></div>
     <div class="bg-layer bg-b"></div>
     <div class="glow"></div>
-
     <div class="content">
-
-      <div
-        class="side left"
-        [class.active-left]="!isFlipped"
-        [class.active-right]="isFlipped"
-      >
+      <div class="side left" [class.active-left]="!isFlipped" [class.active-right]="isFlipped">
         <h1 class="title text-white" [class.visible]="textState === 'final'">
           {{ isFlipped ? 'Welcome Back!' : 'Begin Your Adventure!' }}
         </h1>
@@ -27,12 +19,8 @@
           </span>
         </p>
       </div>
-      
-      <div
-        class="side right glass"
-        [class.active-left]="isFlipped"
-        [class.active-right]="!isFlipped"
-      >
+
+      <div class="side right glass" [class.active-left]="isFlipped" [class.active-right]="!isFlipped">
         <app-login-form *ngIf="isFlipped" class="fade-in"></app-login-form>
         <app-signup-form *ngIf="!isFlipped" class="fade-in"></app-signup-form>
       </div>

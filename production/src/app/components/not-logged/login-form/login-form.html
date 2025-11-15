@@ -22,13 +22,14 @@
   </div>
 
   <div class="input-group">
-    <input type="text" placeholder="Username" />
+    <input [(ngModel)]="email" type="email" placeholder="E-mail" />
   </div>
 
   <div class="input-group">
-    <input type="password" placeholder="Password" />
+    <input [(ngModel)]="password" type="password" placeholder="Password" />
   </div>
   
-  <button class="start-btn">Let’s start</button>
-
+  <button (click)="handleLogin()" [disabled]="loading" class="start-btn">{{ loading ? 'Loading...' : "Let's start" }}</button>
+  
+  <p class="error" *ngIf="error">{{ error }}</p>
 </div>
