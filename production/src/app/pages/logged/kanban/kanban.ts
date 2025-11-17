@@ -5,7 +5,7 @@ import { CommonModule, NgClass, TitleCasePipe } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { filter, timestamp } from 'rxjs';
 
 interface Task {
   id: string;
@@ -43,8 +43,10 @@ export class KanbanComponent implements OnInit {
   editingTask: Task | null = null;
   projectId: string | null = null;
   searchText: string = '';
+  historyOpen = false;
+  history: any[] = [];
 
-  constructor(private supabase: Supabase, private route: ActivatedRoute, private router: Router) {}
+  constructor(private supabase: Supabase, private route: ActivatedRoute, private router: Router) { }
 
   async ngOnInit() {
     this.projectId = this.route.snapshot.paramMap.get('id');
@@ -55,14 +57,14 @@ export class KanbanComponent implements OnInit {
       return;
     }
 
-    if(name) {
+    if (name) {
       this.projectName = name
     } else {
       const { data, error } = await this.supabase.supabase
-      .from('projects')
-      .select('name')
-      .eq('id', this.projectId)
-      .single()
+        .from('projects')
+        .select('name')
+        .eq('id', this.projectId)
+        .single()
     }
 
     console.log('Projeto atual:', this.projectId, this.projectName);
@@ -87,6 +89,19 @@ export class KanbanComponent implements OnInit {
     });
   }
 
+  async openHistory() {
+    this.historyOpen = true;
+
+    const { data, error } = await this.supabase.supabase.from("history").select("*").eq("project_id", this.projectId)
+    if (!error) {
+      this.history = data
+    }
+  }
+
+  closeHistory() {
+    this.historyOpen = false
+  }
+
   openModal(column: string, task?: Task) {
     this.currentColumn = column;
     this.modalVisible = true;
@@ -106,7 +121,7 @@ export class KanbanComponent implements OnInit {
   }
 
   get filteredTasks() {
-    if(!this.searchText.trim()) return this.tasks
+    if (!this.searchText.trim()) return this.tasks
 
     const lower = this.searchText.toLowerCase();
 
@@ -135,7 +150,7 @@ export class KanbanComponent implements OnInit {
     if (!this.projectId) return console.error('Sem projectId, impossível salvar.');
 
     const newTask = {
-      project_id: this.projectId, // 👈 Corrigido
+      project_id: this.projectId, 
       title: this.taskTitle,
       priority: this.taskPriority,
       date: this.taskDate,
@@ -159,6 +174,12 @@ export class KanbanComponent implements OnInit {
       if (error) return console.error(error);
       this.tasks[this.currentColumn].push(data[0]);
     }
+
+    await this.supabase.supabase.from("history").insert([{
+      project_id: this.projectId,
+      action: this.editingTask ? 'Editou task' : 'Criou task',
+      task_title: this.taskTitle
+    }])
 
     this.closeModal();
   }
@@ -187,6 +208,12 @@ export class KanbanComponent implements OnInit {
         .eq('id', task.id);
 
       if (error) console.error(error);
+
+      await this.supabase.supabase.from("history").insert([{
+        project_id: this.projectId,
+        action: `Moveu task para coluna ${targetColumn}`,
+        task_title: task.title
+      }])
 
       transferArrayItem(
         event.previousContainer.data,

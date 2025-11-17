@@ -4,7 +4,6 @@
 
   <p class="subtitle">Sign Up with Open account</p>
 
-  <!-- SOCIAL LOGIN BUTTONS -->
   <div class="social-row">
     <button class="social-btn">
       <img src="../../../apple-logo.png" alt="Apple" />
@@ -35,6 +34,6 @@
 
   <button (click)="handleSignup()" [disabled]="loading" class="start-btn">{{ loading ? 'Loading...' : "Let's start" }}</button>
 
-  <p class="mt-5" *nfIf="error">{{error}}</p>
+  <p class="mt-5" *ngIf="error">{{error}}</p>
   <p class="mt-5" *ngIf="success">{{success}}</p>
 </div>
