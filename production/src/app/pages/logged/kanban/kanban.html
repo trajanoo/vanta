@@ -73,7 +73,9 @@
                 class="bg-neutral-900 rounded-md p-3 mb-3 border border-transparent hover:border-neutral-800 cursor-grab">
                 <div class="flex justify-between mb-2">
                   <p class="text-sm">{{ task.title }}</p>
-                  <button class="text-neutral-600 hover:text-neutral-400" (click)="openModal(column, task)">
+
+                  <!-- botao de opcoes (excluir/editar) -->
+                  <button class="text-neutral-600 hover:text-neutral-400" (click)="openContextMenu($event, task.id)">
                     <span class="material-symbols-outlined text-lg">more_horiz</span>
                   </button>
                 </div>
@@ -87,7 +89,24 @@
                   </span>
                   <span class="text-xs text-gray-400">{{ task.date }}</span>
                 </div>
+                <div *ngIf="contextMenuOpenFor === task.id"
+                  class="absolute z-50 bg-neutral-800 border border-neutral-700 rounded-md shadow-lg w-32 py-1 animate-fadeIn"
+                  [ngStyle]="{
+    top: contextMenuPosition.y + 'px',
+    left: contextMenuPosition.x + 'px'
+  }" (click)="$event.stopPropagation()">
+                  <button class="w-full text-left px-3 py-2 hover:bg-neutral-700 text-sm"
+                    (click)="openModal(column, task); closeContextMenu()">
+                    Editar
+                  </button>
+
+                  <button class="w-full text-left px-3 py-2 text-red-400 hover:bg-neutral-700 text-sm"
+                    (click)="deleteTask(task.id); closeContextMenu()">
+                    Excluir
+                  </button>
+                </div>
               </div>
+
             </div>
           </div>
         </div>

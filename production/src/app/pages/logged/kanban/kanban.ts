@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Supabase } from '../../../services/supabase';
 import { CommonModule, NgClass, TitleCasePipe } from '@angular/common';
@@ -45,6 +45,8 @@ export class KanbanComponent implements OnInit {
   searchText: string = '';
   historyOpen = false;
   history: any[] = [];
+  contextMenuOpenFor: string | null = null
+  contextMenuPosition = { x: 0, y: 0 };
 
   constructor(private supabase: Supabase, private route: ActivatedRoute, private router: Router) { }
 
@@ -118,6 +120,25 @@ export class KanbanComponent implements OnInit {
       this.taskDate = '';
       this.editingTask = null;
     }
+  }
+
+  openContextMenu(e: MouseEvent, taskId: string) {
+    e.stopPropagation();
+    this.contextMenuOpenFor = taskId
+
+    this.contextMenuPosition = {
+      x: e.clientX,
+      y: e.clientY
+    }
+  }
+
+  closeContextMenu() {
+    this.contextMenuOpenFor = null
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside() {
+    this.closeContextMenu()
   }
 
   get filteredTasks() {
