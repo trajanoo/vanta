@@ -69,7 +69,7 @@ export class KanbanComponent implements OnInit {
         .single()
     }
 
-    console.log('Projeto atual:', this.projectId, this.projectName);
+    console.log('projeto atual:', this.projectId, this.projectName);
     await this.loadTasks();
   }
 
@@ -80,11 +80,11 @@ export class KanbanComponent implements OnInit {
       .eq('project_id', this.projectId);
 
     if (error) {
-      console.error('Erro ao carregar tasks:', error);
+      console.error('erro ao carregar tasks:', error);
       return;
     }
 
-    console.log('Tarefas carregadas:', data);
+    console.log('tarefas carregadas:', data);
 
     this.columns.forEach(col => {
       this.tasks[col] = data.filter((t: Task) => t.column === col);
@@ -136,7 +136,8 @@ export class KanbanComponent implements OnInit {
     this.contextMenuOpenFor = null
   }
 
-  @HostListener('document:click', ['$event'])
+  // ao clicar fora da tela fecha a context menu
+  @HostListener('document:click')
   onClickOutside() {
     this.closeContextMenu()
   }
@@ -210,6 +211,12 @@ export class KanbanComponent implements OnInit {
     this.columns.forEach(col => {
       this.tasks[col] = this.tasks[col].filter(t => t.id !== id);
     });
+
+    await this.supabase.supabase.from('history').insert([{
+      project_id: this.projectId,
+      action: `Excluiu task`,
+      task_title: this.taskTitle
+    }])
   }
 
   goToHomePage() {
