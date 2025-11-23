@@ -26,7 +26,7 @@
             <div>
                 <h1 id="title" class="text-xl font-bold">{{ currentFolder }}</h1>
                 <div class="flex items-center gap-1 text-neutral-400 text-sm">
-                    <span>1 project</span>
+                    <span>{{ numberOfProjects }} {{ numberOfProjects == 1 ? 'project' : 'projects' }}</span>
                 </div>
             </div>
         </div>

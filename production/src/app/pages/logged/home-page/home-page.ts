@@ -16,10 +16,12 @@ import { NgIf, NgForOf, AsyncPipe } from '@angular/common';
 export class HomePage implements OnInit {
   currentFolder = 'Acadêmico';
   projects$!: Observable<Project[]>;
+  numberOfProjects = 0
 
   form = { name: '', description: '', folder: 'Acadêmico' }
 
   constructor(private supabase: Supabase, private router: Router) {}
+
 
   ngOnInit(): void {
     this.setFolder('Acadêmico')
@@ -29,6 +31,10 @@ export class HomePage implements OnInit {
     this.currentFolder = folder;
     this.form.folder = folder;
     this.projects$ = this.supabase.getProjectsByFolder(folder);
+
+    this.projects$.subscribe(projects => {
+      this.numberOfProjects = projects.length
+    })
   }
 
   goToProject(project: Project) {
