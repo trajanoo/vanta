@@ -6,6 +6,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, timestamp } from 'rxjs';
+import { GoogleCalendar } from '../../../services/google-calendar';
 
 interface Task {
   id: string;
@@ -48,7 +49,7 @@ export class KanbanComponent implements OnInit {
   contextMenuOpenFor: string | null = null
   contextMenuPosition = { x: 0, y: 0 };
 
-  constructor(private supabase: Supabase, private route: ActivatedRoute, private router: Router) { }
+  constructor(private supabase: Supabase, private route: ActivatedRoute, private router: Router, private gCal: GoogleCalendar) { }
 
   async ngOnInit() {
     this.projectId = this.route.snapshot.paramMap.get('id');
@@ -71,6 +72,12 @@ export class KanbanComponent implements OnInit {
 
     console.log('projeto atual:', this.projectId, this.projectName);
     await this.loadTasks();
+  }
+
+  addToCalendar(task: any) {
+    this.gCal.createEvent(task).then(() => {
+      alert("Evento criado no Google Calendar!")
+    })
   }
 
   async loadTasks() {

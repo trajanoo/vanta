@@ -1,0 +1,23 @@
+details > div {
+  overflow: hidden;
+  transition:
+    max-height 0.25s ease,
+    opacity 0.25s ease,
+    transform 0.25s ease;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+details[open] > div {
+  max-height: 500px; 
+  opacity: 1;
+  transform: translateY(0);
+}
+
+details summary .material-symbols-outlined {
+  transition: transform 0.25s ease;
+}
+details[open] summary .material-symbols-outlined {
+  transform: rotate(180deg);
+}
