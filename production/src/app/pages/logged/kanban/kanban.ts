@@ -80,6 +80,13 @@ export class KanbanComponent implements OnInit {
     })
   }
 
+  openCalendar(task: any) {
+    const date = new Date(task.date).toISOString().split("T")[0];
+    const formatted = date.replace(/-/g, "/");
+    const url = `https://calendar.google.com/calendar/r/day/${formatted}`
+    window.open(url, '_blank')
+  }
+
   async loadTasks() {
     const { data, error } = await this.supabase.supabase
       .from('tasks')

@@ -51,30 +51,32 @@ export class GoogleCalendar {
 
   async createEvent(task: { title: string; date: string; description?: string }) {
     if (!this.isGapiLoaded) throw new Error('GAPI not loaded');
-
+  
     await this.authenticate();
+  
+    const [year, month, day] = task.date.split("-").map(Number);
 
-    const start = new Date(task.date);
-    const end = new Date(start.getTime() + 30 * 60 * 1000);
-
+    const start = new Date(year, month - 1, day, 9, 0, 0);
+    const end = new Date(year, month - 1, day, 9, 30, 0);
+  
     const event = {
       summary: task.title,
       description: task.description || '',
       start: {
-        dateTime: start.toISOString(),
+        dateTime: start.toISOString().replace("Z", ""),
         timeZone: 'America/Sao_Paulo',
       },
       end: {
-        dateTime: end.toISOString(),
+        dateTime: end.toISOString().replace("Z", ""),
         timeZone: 'America/Sao_Paulo',
       },
     };
-
+  
     const response = await gapi.client.calendar.events.insert({
       calendarId: 'primary',
       resource: event,
     });
-
+  
     return response;
   }
 }
