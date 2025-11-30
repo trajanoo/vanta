@@ -1,0 +1,81 @@
+/* Fade suave estilo macOS */
+.macos-fade {
+    animation: macFade 0.35s ease-out;
+}
+
+@keyframes macFade {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cards com animação suave ao hover */
+.macos-card {
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* Sombras de vidro estilo macOS */
+.macos-card:hover {
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.10);
+}
+a/* Smooth transitions e melhorias visuais */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+/* Scrollbar customizada */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Animações suaves */
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] .chevron {
+  transform: rotate(180deg);
+}
+
+/* Efeitos de backdrop modernos */
+.backdrop-blur-sm {
+  backdrop-filter: blur(8px);
+}
+
+/* Gradientes sutis */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* Animação de pressão (click) */
+.macos-card:active {
+    transform: scale(0.97);
+}

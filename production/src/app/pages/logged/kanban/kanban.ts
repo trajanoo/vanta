@@ -1,10 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, NgModule, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Supabase } from '../../../services/supabase';
 import { CommonModule, NgClass, TitleCasePipe } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { filter, timestamp } from 'rxjs';
 import { GoogleCalendar } from '../../../services/google-calendar';
 
@@ -19,7 +19,7 @@ interface Task {
 
 @Component({
   selector: 'app-kanban',
-  imports: [CommonModule, TitleCasePipe, DragDropModule, NgClass, FormsModule],
+  imports: [CommonModule, TitleCasePipe, DragDropModule, NgClass, FormsModule, RouterLink],
   standalone: true,
   templateUrl: './kanban.html',
   styleUrls: ['./kanban.css']

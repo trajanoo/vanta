@@ -1,0 +1,70 @@
+<div class="dashboard-wrapper grid grid-cols-[100px_1fr] min-h-screen">
+  
+  <div class="col-span-1 w-[100px] border-r border-[#161616] bg-[#0d0d0d]">
+    <div class="p-4 pb-10 flex justify-center items-center">
+      <img src="../../../../vantalogo.png" class="w-14 h-12 text-white cursor-pointer" (click)="goToHomePage()" />
+    </div>
+
+    <div class="flex flex-col items-center gap-8 mt-8">
+      <div [routerLink]="['/logged/kanban', projectId]" class="cursor-pointer">
+        <span class="material-symbols-outlined hover:bg-neutral-800 rounded-md transition-all text-white duration-200 p-2">
+          grid_view
+        </span>
+      </div>
+
+      <div [routerLink]="['/project', projectId, 'dashboard']" class="cursor-pointer">
+        <span class="material-symbols-outlined hover:bg-neutral-800 rounded-md text-white transition-all duration-200 p-2">
+          bid_landscape
+        </span>
+      </div>
+
+      <div class="cursor-pointer">
+        <span class="material-symbols-outlined hover:bg-neutral-800 rounded-md text-white transition-all duration-200 p-2">
+          people
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-container p-10">
+
+    <h1 class="dashboard-title">Dashboard</h1>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total de Tasks</h3>
+        <p>{{ total }}</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Concluídas</h3>
+        <p>{{ done }}</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Pendentes</h3>
+        <p>{{ pendent }}</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Taxa de Conclusão</h3>
+        <p>{{ completionRate }}%</p>
+    </div>
+
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>Status das Tasks</h3>
+        <canvas #statusChart></canvas>
+      </div>
+
+      <div class="chart-card">
+        <h3>Tasks por Status</h3>
+        <canvas #barChart></canvas>
+      </div>
+    </div>
+
+  </div>
+
+</div>

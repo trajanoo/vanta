@@ -1,0 +1,72 @@
+/* Container geral */
+.dashboard-container {
+  padding: 40px;
+  color: #e5e5e5;
+  background: #0d0d0d;
+  min-height: 100vh;
+}
+
+/* Título principal */
+.dashboard-title {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+/* GRID dos cards de estatísticas */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+/* Card de estatística */
+.stat-card {
+  background: #151515;
+  border: 1px solid #1f1f1f;
+  padding: 20px 25px;
+  border-radius: 12px;
+  transition: 0.2s ease;
+}
+
+.stat-card:hover {
+  border-color: #2a2a2a;
+}
+
+.stat-card h3 {
+  font-size: 14px;
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+
+.stat-card p {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+/* GRID dos gráficos */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+/* Cards dos gráficos */
+.chart-card {
+  background: #151515;
+  border: 1px solid #1f1f1f;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+.chart-card h3 {
+  font-size: 16px;
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+/* Canvas fixo ao padrão */
+canvas {
+  height: 400px !important;
+}
