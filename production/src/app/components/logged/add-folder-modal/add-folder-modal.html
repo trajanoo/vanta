@@ -1,0 +1,33 @@
+<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-[#282828] rounded-lg p-6 w-full max-w-sm shadow-lg transform transition-transform duration-300 scale-95">
+
+      <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl font-title text-white font-bold">Nova Pasta</h3>
+          <button (click)="close.emit()" 
+                  class="text-neutral-400 hover:text-neutral-200 transition-colors w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-800">
+              <span class="material-symbols-outlined">close</span>
+          </button>
+      </div>
+
+      <div class="mb-6">
+          <label class="text-neutral-100 block text-sm font-body mb-2">Nome da Pasta</label>
+          <input [(ngModel)]="name" 
+                 type="text"
+                 placeholder="Digite o nome da pasta"
+                 class="w-full p-3 rounded-md bg-neutral-800 text-white border border-neutral-700 
+                        focus:outline-none focus:border-neutral-500 transition-colors placeholder-neutral-400"/>
+      </div>
+
+      <div class="flex justify-end gap-3">
+          <button (click)="close.emit()" 
+                  class="px-4 py-2 rounded-md bg-neutral-700 hover:bg-neutral-600 text-white font-body transition-colors">
+              Cancelar
+          </button>
+          <button (click)="create()" 
+                  class="px-4 py-2 rounded-md bg-neutral-500 hover:bg-neutral-400 text-white font-body transition-colors">
+              Criar
+          </button>
+      </div>
+
+  </div>
+</div>

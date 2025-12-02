@@ -1,4 +1,5 @@
-/* Container geral */
+
+
 .dashboard-container {
   padding: 40px;
   color: #e5e5e5;
@@ -6,14 +7,12 @@
   min-height: 100vh;
 }
 
-/* Título principal */
 .dashboard-title {
   font-size: 32px;
   font-weight: 600;
   margin-bottom: 30px;
 }
 
-/* GRID dos cards de estatísticas */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -21,7 +20,6 @@
   margin-bottom: 40px;
 }
 
-/* Card de estatística */
 .stat-card {
   background: #151515;
   border: 1px solid #1f1f1f;
@@ -45,14 +43,12 @@
   font-weight: 600;
 }
 
-/* GRID dos gráficos */
 .charts-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
 }
 
-/* Cards dos gráficos */
 .chart-card {
   background: #151515;
   border: 1px solid #1f1f1f;
@@ -66,7 +62,26 @@
   opacity: 0.8;
 }
 
-/* Canvas fixo ao padrão */
 canvas {
   height: 400px !important;
+}
+@media (max-width: 1400px) {
+
+  .dashboard-container {
+    padding: 30px;
+  }
+
+  .charts-grid {
+    gap: 20px;
+  }
+
+  .chart-card {
+    min-width: 0; 
+    padding: 20px;
+    height: 330px;
+  }
+
+  canvas {
+    height: 250px !important; 
+  }
 }

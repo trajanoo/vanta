@@ -8,7 +8,7 @@ export const routes: Routes = [{
 }, {
     path: 'home', component: HomePage
 }, { 
-    path: 'logged/kanban/:id', component: KanbanComponent
+    path: 'project/:id', component: KanbanComponent
 }, {
     path: 'project/:id/dashboard', component: Dashboard
 }];

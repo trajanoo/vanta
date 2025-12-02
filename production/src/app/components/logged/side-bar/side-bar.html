@@ -1,80 +1,58 @@
 <div class="space-y-2">
     <div class="flex items-center justify-between mb-4">
         <span class="text-sm">Pastas</span>
-        <button class="w-8 h-8 rounded-full hover:bg-neutral-800 transition-colors flex items-center justify-center">
+        <button (click)="openFolderModal()"
+            class="w-8 h-8 rounded-full hover:bg-neutral-800 transition-colors flex items-center justify-center">
             <span class="material-symbols-outlined">add</span>
         </button>
     </div>
-    <div class="relative mb-1">
-        <details id="details-academico" class="w-full" open="">
-            <summary (click)="selectFolder('Acadêmico')"
+
+    <div *ngFor="let f of folders" class="relative mb-1">
+
+        <details [open]="openFolder === f.name" class="w-full">
+
+
+            <summary (click)="selectFolder(f.name)" (click)="toggleFolderDropdown(f.name)"
                 class="flex items-center justify-between p-2 rounded hover:bg-neutral-800 cursor-pointer list-none">
 
                 <div class="flex items-center gap-2">
-                    <img src="../../../../Acadêmico.png" class="w-8 h-8 rounded" />
-                    <span class="text-sm">Acadêmico</span>
+
+
+                    <img *ngIf="isDefaultFolder(f.name)" [src]="'../../../../' + f.name + '.png'"
+                        class="w-8 h-8 rounded" />
+
+
+                    <div *ngIf="!isDefaultFolder(f.name)"
+                        class="w-8 h-8 rounded flex items-center justify-center text-white font-bold"
+                        [ngStyle]="{ 'background-color': getColorForFolder(f.name) }">
+                        {{ f.name.charAt(0).toUpperCase() }}
+                    </div>
+
+                    <span class="text-sm">{{ f.name }}</span>
                 </div>
 
-                <span class="material-symbols-outlined text-sm chevron">expand_more</span>
+                <span class="material-symbols-outlined text-sm chevron transition-transform"
+                    [ngClass]="{ 'rotate-180': openFolder === f.name }">
+                    expand_more
+                </span>
             </summary>
+
             <div class="mt-1 ml-2 space-y-1">
-                <div class="flex items-center p-2 rounded bg-neutral-800 hover:bg-neutral-700 transition-colors">
+
+                <div
+                    class="flex items-center p-2 rounded bg-neutral-800 hover:bg-neutral-700 transition-colors cursor-pointer">
                     <span class="material-symbols-outlined mr-2 text-sm">folder</span>
                     <span class="text-sm">Projetos</span>
                 </div>
-                <div class="flex items-center p-2 rounded hover:bg-neutral-800 transition-colors">
+
+                <div (click)="openFolderSettings(f)"
+                    class="flex items-center p-2 rounded hover:bg-neutral-800 transition-colors cursor-pointer">
                     <span class="material-symbols-outlined mr-2 text-sm">settings</span>
                     <span class="text-sm">Configurações</span>
                 </div>
+
             </div>
         </details>
-    </div>
-    <div class="relative mb-1">
-        <details id="details-pessoal" class="w-full">
-            <summary (click)="selectFolder('Pessoal')"
-                class="flex items-center justify-between p-2 rounded hover:bg-neutral-800 cursor-pointer list-none">
 
-                <div class="flex items-center gap-2">
-                    <img src="../../../../Pessoal.png" class="w-8 h-8 rounded" />
-                    <span class="text-sm">Pessoal</span>
-                </div>
-
-                <span class="material-symbols-outlined text-sm chevron">expand_more</span>
-            </summary>
-            <div class="mt-1 ml-2 space-y-1">
-                <div class="flex items-center p-2 rounded bg-neutral-800 hover:bg-neutral-700 transition-colors">
-                    <span class="material-symbols-outlined mr-2 text-sm">folder</span>
-                    <span class="text-sm">Projetos</span>
-                </div>
-                <div class="flex items-center p-2 rounded hover:bg-neutral-800 transition-colors">
-                    <span class="material-symbols-outlined mr-2 text-sm">settings</span>
-                    <span class="text-sm">Configurações</span>
-                </div>
-            </div>
-        </details>
-    </div>
-    <div class="relative mb-1">
-        <details id="details-profissional" class="w-full">
-            <summary (click)="selectFolder('Profissional')"
-                class="flex items-center justify-between p-2 rounded hover:bg-neutral-800 cursor-pointer list-none">
-
-                <div class="flex items-center gap-2">
-                    <img src="../../../../Profissional.png" class="w-8 h-8 rounded" />
-                    <span class="text-sm">Profissional</span>
-                </div>
-
-                <span class="material-symbols-outlined text-sm chevron">expand_more</span>
-            </summary>
-            <div class="mt-1 ml-2 space-y-1">
-                <div class="flex items-center p-2 rounded bg-neutral-800 hover:bg-neutral-700 transition-colors">
-                    <span class="material-symbols-outlined mr-2 text-sm">folder</span>
-                    <span class="text-sm">Projetos</span>
-                </div>
-                <div class="flex items-center p-2 rounded hover:bg-neutral-800 transition-colors">
-                    <span class="material-symbols-outlined mr-2 text-sm">settings</span>
-                    <span class="text-sm">Configurações</span>
-                </div>
-            </div>
-        </details>
     </div>
 </div>

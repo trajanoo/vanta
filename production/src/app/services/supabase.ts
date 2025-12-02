@@ -12,7 +12,9 @@ export class Supabase {
   public supabase: SupabaseClient;
 
   private projects$ = new BehaviorSubject<Project[]>([]);
+  private folders$ = new BehaviorSubject<any[]>([]);
   public projectsObservable$ = this.projects$.asObservable();
+  public foldersObservable$ = this.folders$.asObservable();
 
   constructor() {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseAnonKey);
@@ -42,6 +44,65 @@ export class Supabase {
 
   async logout() {
     return await this.supabase.auth.signOut();
+  }
+
+  async loadFolders() {
+    const { data: userData } = await this.supabase.auth.getUser()
+    const user = userData?.user;
+
+    if(!user) {
+      this.folders$.next([]);
+      return
+    }
+
+    const { data, error } = await this.supabase
+      .from('folders')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', {  ascending: true });
+      
+      if(!error) this.folders$.next(data);
+  }
+
+  async ensureDefaultFolders() {
+  const { data: userData } = await this.supabase.auth.getUser();
+  const user = userData?.user;
+  if (!user) return;
+
+  const { data: folders } = await this.supabase
+    .from('folders')
+    .select('*')
+    .eq('user_id', user.id);
+
+  // Se já existem pastas, não faz nada
+  if (folders && folders.length > 0) return;
+
+  // Cria as três padrão
+  await this.supabase
+    .from('folders')
+    .insert([
+      { name: 'Acadêmico', user_id: user.id },
+      { name: 'Pessoal', user_id: user.id },
+      { name: 'Profissional', user_id: user.id }
+    ]);
+}
+
+
+  async createFolder(name: string) {
+    const { data: userData } = await this.supabase.auth.getUser();
+    const user = userData?.user;
+    if(!user) throw new Error('user not found')
+
+    const { data, error } = await this.supabase
+      .from('folders')
+      .insert([{ name, user_id: user.id }])
+      .select()
+      .single();
+
+    if(error) throw error;
+
+    this.folders$.next([...this.folders$.value, data]);
+    return data;    
   }
 
   async loadAllProjects() {
