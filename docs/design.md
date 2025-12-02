@@ -1,3 +1,3 @@
-# Link do Figma: 
+# Link da Pesquisa Qualitativa: 
 
-[clique para ver o design do figma!](https://www.figma.com/design/etodNaMQTrFeG68fKnV3qy/Vanta?node-id=0-1&t=oDXoveMUILB4OLxj-1)
+[clique para ver a pesquisa!](https://docs.google.com/forms/d/e/1FAIpQLSfvgHn_WE_Sm3UOR22W6Lw70zZ1r0fNQbfGYm17RKQmd8tTrA/viewform?usp=header)
