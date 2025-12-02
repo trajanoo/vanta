@@ -1,58 +1,58 @@
-<div class="space-y-2">
-    <div class="flex items-center justify-between mb-4">
-        <span class="text-sm">Pastas</span>
-        <button (click)="openFolderModal()"
-            class="w-8 h-8 rounded-full hover:bg-neutral-800 transition-colors flex items-center justify-center">
-            <span class="material-symbols-outlined">add</span>
-        </button>
-    </div>
+    <div class="space-y-2">
+        <div class="flex items-center justify-between mb-4">
+            <span class="text-sm">Pastas</span>
+            <button (click)="openFolderModal()"
+                class="w-8 h-8 rounded-full hover:bg-neutral-800 transition-colors flex items-center justify-center">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+        </div>
 
-    <div *ngFor="let f of folders" class="relative mb-1">
+        <div *ngFor="let f of folders" class="relative mb-1">
 
-        <details [open]="openFolder === f.name" class="w-full">
-
-
-            <summary (click)="selectFolder(f.name)" (click)="toggleFolderDropdown(f.name)"
-                class="flex items-center justify-between p-2 rounded hover:bg-neutral-800 cursor-pointer list-none">
-
-                <div class="flex items-center gap-2">
+            <details [open]="openFolder === f.name" class="w-full">
 
 
-                    <img *ngIf="isDefaultFolder(f.name)" [src]="'../../../../' + f.name + '.png'"
-                        class="w-8 h-8 rounded" />
+                <summary (click)="selectFolder(f.name)" (click)="toggleFolderDropdown(f.name)"
+                    class="flex items-center justify-between p-2 rounded hover:bg-neutral-800 cursor-pointer list-none">
+
+                    <div class="flex items-center gap-2">
 
 
-                    <div *ngIf="!isDefaultFolder(f.name)"
-                        class="w-8 h-8 rounded flex items-center justify-center text-white font-bold"
-                        [ngStyle]="{ 'background-color': getColorForFolder(f.name) }">
-                        {{ f.name.charAt(0).toUpperCase() }}
+                        <img *ngIf="isDefaultFolder(f.name)" [src]="'../../../../' + f.name + '.png'"
+                            class="w-8 h-8 rounded" />
+
+
+                        <div *ngIf="!isDefaultFolder(f.name)"
+                            class="w-8 h-8 rounded flex items-center justify-center text-white font-bold"
+                            [ngStyle]="{ 'background-color': getColorForFolder(f.name) }">
+                            {{ f.name.charAt(0).toUpperCase() }}
+                        </div>
+
+                        <span class="text-sm">{{ f.name }}</span>
                     </div>
 
-                    <span class="text-sm">{{ f.name }}</span>
+                    <span class="material-symbols-outlined text-sm chevron transition-transform"
+                        [ngClass]="{ 'rotate-180': openFolder === f.name }">
+                        expand_more
+                    </span>
+                </summary>
+
+                <div class="mt-1 ml-2 space-y-1">
+
+                    <div
+                        class="flex items-center p-2 rounded bg-neutral-800 hover:bg-neutral-700 transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined mr-2 text-sm">folder</span>
+                        <span class="text-sm">Projetos</span>
+                    </div>
+
+                    <div (click)="openFolderSettings(f)"
+                        class="flex items-center p-2 rounded hover:bg-neutral-800 transition-colors cursor-pointer">
+                        <span class="material-symbols-outlined mr-2 text-sm">settings</span>
+                        <span class="text-sm">Configurações</span>
+                    </div>
+
                 </div>
+            </details>
 
-                <span class="material-symbols-outlined text-sm chevron transition-transform"
-                    [ngClass]="{ 'rotate-180': openFolder === f.name }">
-                    expand_more
-                </span>
-            </summary>
-
-            <div class="mt-1 ml-2 space-y-1">
-
-                <div
-                    class="flex items-center p-2 rounded bg-neutral-800 hover:bg-neutral-700 transition-colors cursor-pointer">
-                    <span class="material-symbols-outlined mr-2 text-sm">folder</span>
-                    <span class="text-sm">Projetos</span>
-                </div>
-
-                <div (click)="openFolderSettings(f)"
-                    class="flex items-center p-2 rounded hover:bg-neutral-800 transition-colors cursor-pointer">
-                    <span class="material-symbols-outlined mr-2 text-sm">settings</span>
-                    <span class="text-sm">Configurações</span>
-                </div>
-
-            </div>
-        </details>
-
+        </div>
     </div>
-</div>

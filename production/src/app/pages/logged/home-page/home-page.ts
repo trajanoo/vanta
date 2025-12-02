@@ -30,10 +30,8 @@ export class HomePage implements OnInit {
 
 
   ngOnInit(): void {
-    this.supabase.foldersObservable$.subscribe(folders => {
-      if (folders.length > 0) {
-        this.setFolder(folders[0].name);
-      }
+    this.supabase.foldersObservable$.subscribe(f => {
+      this.folders = f;
     });
 
     this.supabase.ensureDefaultFolders();

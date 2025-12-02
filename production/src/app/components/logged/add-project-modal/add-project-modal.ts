@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import Project from '../../../models/project';
 import { Supabase } from '../../../services/supabase';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-project-modal',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './add-project-modal.html',
   styleUrls: ['./add-project-modal.css'],
 })
