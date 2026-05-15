@@ -1,4 +1,4 @@
-```markdown
+
 # Vanta
 
 Vanta is a web application designed to manage projects and folders, allowing users to create, organize, and navigate through their projects effectively. Built with Angular, it provides a user-friendly interface to streamline project management tasks.
@@ -26,7 +26,6 @@ To set up the Vanta project locally, follow these steps:
    ```bash
    git clone https://github.com/your-username/vanta.git
    cd vanta
-   ```
 
 2. **Install dependencies**:
    ```bash
